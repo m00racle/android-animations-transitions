@@ -4,8 +4,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.jimulabs.mirrorsandbox.MirrorSandboxBase;
 import com.teamtreehouse.albumcover.R;
 
@@ -14,20 +12,25 @@ import com.teamtreehouse.albumcover.R;
  */
 public class AlbumDetailBox extends MirrorSandboxBase {
 
-    @BindView(R.id.album_art)
+
     ImageView albumArtView;
-    @BindView(R.id.fab)
+
     ImageButton fab;
-    @BindView(R.id.title_panel)
+
     ViewGroup cyanPanel;
-    @BindView(R.id.track_panel)
+
     ViewGroup whitePanel;
-    @BindView(R.id.detail_container)
+
     ViewGroup detailContainer;
 
     public AlbumDetailBox(View rootView) {
         super(rootView);
-        ButterKnife.bind(this, rootView);
+        albumArtView = rootView.findViewById(R.id.album_art);
+        fab = rootView.findViewById(R.id.fab);
+        cyanPanel = rootView.findViewById(R.id.title_panel);
+        whitePanel = rootView.findViewById(R.id.track_panel);
+        detailContainer = rootView.findViewById(R.id.detail_container);
+        //ButterKnife.bind(this, rootView);
     }
 
     @Override
