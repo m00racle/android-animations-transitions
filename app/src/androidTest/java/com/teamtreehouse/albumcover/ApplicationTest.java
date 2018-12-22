@@ -1,13 +1,17 @@
 package com.teamtreehouse.albumcover;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    public ApplicationTest() {
-        super(Application.class);
+public class ApplicationTest {
+    @Test
+    public void addition_isCorrect() {
+        assertEquals(4, 2 + 2);
     }
 }

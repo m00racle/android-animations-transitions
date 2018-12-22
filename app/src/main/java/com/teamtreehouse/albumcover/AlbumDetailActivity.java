@@ -11,27 +11,38 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 
 public class AlbumDetailActivity extends Activity {
 
-    public static final String EXTRA_ALBUM_ART_RESID = "EXTRA_ALBUM_ART_RESID";
+    static final String EXTRA_ALBUM_ART_RESID = "EXTRA_ALBUM_ART_RESID"; //private field
 
-    @BindView(R.id.album_art) ImageView albumArtView;
-    @BindView(R.id.fab) ImageButton fab;
-    @BindView(R.id.title_panel) ViewGroup titlePanel;
-    @BindView(R.id.track_panel) ViewGroup trackPanel;
-    @BindView(R.id.detail_container) ViewGroup detailContainer;
+    ImageView albumArtView;
+
+    ImageButton fab;
+
+    ViewGroup titlePanel;
+
+    ViewGroup trackPanel;
+
+    ViewGroup detailContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
-        ButterKnife.bind(this);
+        albumArtView = findViewById(R.id.album_art);
+        fab = findViewById(R.id.fab);
+        titlePanel = findViewById(R.id.title_panel);
+        trackPanel = findViewById(R.id.track_panel);
+        detailContainer = findViewById(R.id.detail_container);
+
         populate();
+        albumArtView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animate();
+            }
+        });
     }
 
     private void animate() {
@@ -40,10 +51,7 @@ public class AlbumDetailActivity extends Activity {
         fab.animate().scaleX(1).scaleY(1).start();
     }
 
-    @OnClick(R.id.album_art)
-    public void onAlbumArtClick(View view) {
-        animate();
-    }
+
 
     private void populate() {
         int albumArtResId = getIntent().getIntExtra(EXTRA_ALBUM_ART_RESID, R.drawable.mean_something_kinder_than_wolves);
