@@ -1,5 +1,6 @@
 package com.teamtreehouse.albumcover;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -49,6 +50,21 @@ public class AlbumDetailActivity extends Activity {
         fab.setScaleX(0);
         fab.setScaleY(0);
         fab.animate().scaleX(1).scaleY(1).start();
+
+        //animate titlePanel using wrapper of PropertyAnimator called ObjectAnimator. this class is static thus
+        //ready to be called: then do the same for trackPanel
+        //public static ObjectAnimator ofInt (Object target,
+        //                String propertyName,
+        //                int... values)
+        int titleStartValue = titlePanel.getTop(); //define the start from top of activity layout
+
+        int titleEndValue = titlePanel.getBottom(); //in the end in the bottom of the activity layout
+
+        ObjectAnimator.ofInt(titlePanel,"bottom", titleStartValue, titleEndValue).start();
+
+        //for the trackPanel: NOTE: we just put all int values directly inside the static ObjectAnimator ofInt method!
+        ObjectAnimator.ofInt(trackPanel, "bottom",
+                trackPanel.getTop(), trackPanel.getBottom()).start();
     }
 
 
