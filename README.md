@@ -1,6 +1,8 @@
 # Android Animations and Transitions
 These are the full project files for the album cover app used in Treehouse's Animations and Transitions course.
 
+[Documentation for this project](https://docs.google.com/document/d/16d5h4MTKKhYKzeFlnYeTuba7MuR7mOipVhwBgLFxi-0/edit?usp=sharing)
+
 NOTE:
 
 I make some changes in the Gradle version to 3.0.1 to accommodates the Google() repo for implementations of dependencies. 
