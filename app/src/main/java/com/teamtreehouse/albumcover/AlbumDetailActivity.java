@@ -79,10 +79,10 @@ public class AlbumDetailActivity extends Activity {
         set.playSequentially(fabScale, animatorTitle, animatorTrack);
 
         //fix the flickering of views by adding these codes:
-        titlePanel.setBottom(titleStartValue); //set the bottom to be Top.... hmmmm
-        trackPanel.setBottom(trackPanel.getTop()); //set the bottom of track panel as top?
+        titlePanel.setBottom(titleStartValue); //set the bottom to be Top of title panel view
+        trackPanel.setBottom(titleStartValue); //set the bottom of track panel as top of above title panel view
         //both panel comes into animation slided from top to bottom thus the initial state before animation is not
-        //visible thus the bottom meet the top of the view.
+        //visible thus the bottom meet the top of the view titlePanel so it will shown sliding from the same spot
 
         //as for the fab we need initialized the starting point of both scaleX and scaleY as 0:
         fab.setScaleX(0);
