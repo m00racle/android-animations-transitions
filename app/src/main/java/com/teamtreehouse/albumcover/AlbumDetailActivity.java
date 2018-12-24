@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -68,9 +70,15 @@ public class AlbumDetailActivity extends Activity {
         ObjectAnimator animatorTitle = ObjectAnimator.ofInt(titlePanel,"bottom",
                 titleStartValue, titleEndValue);
 
+        //set interpolator for animatorTitle: in this case we will use Accelerate Interpolator type:
+        animatorTitle.setInterpolator(new AccelerateInterpolator());
+
         //set this also to be assigned to Object Animator for choreographing:
         ObjectAnimator animatorTrack = ObjectAnimator.ofInt(trackPanel, "bottom",
                 trackPanel.getTop(), trackPanel.getBottom());
+
+        //set interpolator for animatorTrack: in this case we will use Decelerate Interpolator type:
+        animatorTrack.setInterpolator(new DecelerateInterpolator());
 
         //create the set animation by instantiating a new AnimatorSet object:
         AnimatorSet set = new AnimatorSet();
