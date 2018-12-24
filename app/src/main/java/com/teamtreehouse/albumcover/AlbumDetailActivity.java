@@ -1,5 +1,7 @@
 package com.teamtreehouse.albumcover;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -50,17 +52,20 @@ public class AlbumDetailActivity extends Activity {
     }
 
     private void animate() {
-        //set this to be like the animation sequence at the bottom but make it play together first before join:
-        //first we make animation of fab scale to x:
-        ObjectAnimator fabScaleX = ObjectAnimator.ofFloat(fab, "scaleX", 0, 1);
 
-        //then scale to Y:
+       /* This was commented out to be replaced by xml style animator ser
+       ObjectAnimator fabScaleX = ObjectAnimator.ofFloat(fab, "scaleX", 0, 1);
+
         ObjectAnimator fabScaleY = ObjectAnimator.ofFloat(fab, "scaleY", 0, 1);
 
-        //and then join them to play together:
         AnimatorSet fabScale = new AnimatorSet();
-        fabScale.playTogether(fabScaleX, fabScaleY);
+        fabScale.playTogether(fabScaleX, fabScaleY);*/
 
+       //xml animator is res/animator/scale.xml needs to be inflated:
+        Animator fabScale = AnimatorInflater.loadAnimator(this, R.animator.scale);
+
+        //set the Animator target view which is the fab ImageButton:
+        fabScale.setTarget(fab);
 
         int titleStartValue = titlePanel.getTop();
 
