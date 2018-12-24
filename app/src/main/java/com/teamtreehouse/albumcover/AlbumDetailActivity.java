@@ -1,5 +1,7 @@
 package com.teamtreehouse.albumcover;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -50,17 +52,20 @@ public class AlbumDetailActivity extends Activity {
     }
 
     private void animate() {
-        //set this to be like the animation sequence at the bottom but make it play together first before join:
-        //first we make animation of fab scale to x:
-        ObjectAnimator fabScaleX = ObjectAnimator.ofFloat(fab, "scaleX", 0, 1);
 
-        //then scale to Y:
+       /* This was commented out to be replaced by xml style animator ser
+       ObjectAnimator fabScaleX = ObjectAnimator.ofFloat(fab, "scaleX", 0, 1);
+
         ObjectAnimator fabScaleY = ObjectAnimator.ofFloat(fab, "scaleY", 0, 1);
 
-        //and then join them to play together:
         AnimatorSet fabScale = new AnimatorSet();
-        fabScale.playTogether(fabScaleX, fabScaleY);
+        fabScale.playTogether(fabScaleX, fabScaleY);*/
 
+       //xml animator is res/animator/scale.xml needs to be inflated:
+        Animator fabScale = AnimatorInflater.loadAnimator(this, R.animator.scale);
+
+        //set the Animator target view which is the fab ImageButton:
+        fabScale.setTarget(fab);
 
         int titleStartValue = titlePanel.getTop();
 
@@ -74,10 +79,10 @@ public class AlbumDetailActivity extends Activity {
         animatorTitle.setInterpolator(new AccelerateInterpolator());
 
         //set the duration of animatorTitle:
-        animatorTitle.setDuration(1000); // NOTE: this is in milliseconds (1000 ms = 1 s)
+        animatorTitle.setDuration(300); // NOTE: this is in milliseconds (1000 ms = 1 s)
 
-        //set animator title delay:
-        animatorTitle.setStartDelay(1000); // in milliseconds
+        //set animator title delay: NOTE: Maximizing performance thus this must go!
+        //animatorTitle.setStartDelay(1000); // in milliseconds
 
         //set this also to be assigned to Object Animator for choreographing:
         ObjectAnimator animatorTrack = ObjectAnimator.ofInt(trackPanel, "bottom",
@@ -87,13 +92,16 @@ public class AlbumDetailActivity extends Activity {
         animatorTrack.setInterpolator(new DecelerateInterpolator());
 
         //set the duration for animator Track:
-        animatorTrack.setDuration(1000); //in milliseconds (1000 ms = 1 s)
+        animatorTrack.setDuration(150); //in milliseconds (1000 ms = 1 s)
 
         //create the set animation by instantiating a new AnimatorSet object:
+        AnimatorSet playFirst = new AnimatorSet();
         AnimatorSet set = new AnimatorSet();
 
         //using the set Object above to choreograph the whole animations from fab to titles:
-        set.playSequentially(fabScale, animatorTitle, animatorTrack);
+        //as for why we don't set the playFirst in xml refer to why xml cannot get runtime data for animator
+        playFirst.playTogether(fabScale, animatorTitle);
+        set.playSequentially(playFirst, animatorTrack);
 
         //fix the flickering of views by adding these codes:
         titlePanel.setBottom(titleStartValue); //set the bottom to be Top of title panel view
