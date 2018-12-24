@@ -1,5 +1,7 @@
 package com.teamtreehouse.albumcover;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -46,9 +48,48 @@ public class AlbumDetailActivity extends Activity {
     }
 
     private void animate() {
+        //set this to be like the animation sequence at the bottom but make it play together first before join:
+        //first we make animation of fab scale to x:
+        ObjectAnimator fabScaleX = ObjectAnimator.ofFloat(fab, "scaleX", 0, 1);
+
+        //then scale to Y:
+        ObjectAnimator fabScaleY = ObjectAnimator.ofFloat(fab, "scaleY", 0, 1);
+
+        //and then join them to play together:
+        AnimatorSet fabScale = new AnimatorSet();
+        fabScale.playTogether(fabScaleX, fabScaleY);
+
+
+        int titleStartValue = titlePanel.getTop();
+
+        int titleEndValue = titlePanel.getBottom();
+
+        //set this to be assigned to ObjectAnimator Effect to be choreographed:
+        ObjectAnimator animatorTitle = ObjectAnimator.ofInt(titlePanel,"bottom",
+                titleStartValue, titleEndValue);
+
+        //set this also to be assigned to Object Animator for choreographing:
+        ObjectAnimator animatorTrack = ObjectAnimator.ofInt(trackPanel, "bottom",
+                trackPanel.getTop(), trackPanel.getBottom());
+
+        //create the set animation by instantiating a new AnimatorSet object:
+        AnimatorSet set = new AnimatorSet();
+
+        //using the set Object above to choreograph the whole animations from fab to titles:
+        set.playSequentially(fabScale, animatorTitle, animatorTrack);
+
+        //fix the flickering of views by adding these codes:
+        titlePanel.setBottom(titleStartValue); //set the bottom to be Top of title panel view
+        trackPanel.setBottom(titleStartValue); //set the bottom of track panel as top of above title panel view
+        //both panel comes into animation slided from top to bottom thus the initial state before animation is not
+        //visible thus the bottom meet the top of the view titlePanel so it will shown sliding from the same spot
+
+        //as for the fab we need initialized the starting point of both scaleX and scaleY as 0:
         fab.setScaleX(0);
         fab.setScaleY(0);
-        fab.animate().scaleX(1).scaleY(1).start();
+
+        //start the animation: NOTE we cannot chain it with the code above, we need to separate it:
+        set.start();
     }
 
 
