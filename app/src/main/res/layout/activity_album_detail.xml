@@ -11,14 +11,14 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:scaleType="centerCrop"
-            android:id="@+id/album_art"
-            android:src="@drawable/mean_something_kinder_than_wolves"
-            android:clickable="true"
-            android:transitionName="albumArt"
-            android:contentDescription="@string/desc_album_art"/>
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:scaleType="centerCrop"
+                android:id="@+id/album_art"
+                android:src="@drawable/mean_something_kinder_than_wolves"
+                android:clickable="true"
+                android:transitionName="albumArt"
+                android:contentDescription="@string/desc_album_art" android:focusable="true"/>
 
         <RelativeLayout
             android:background="#31576b"
